@@ -1,0 +1,31 @@
+﻿OFFICE 365 SP
+https://www.microsoft.com/en-us/microsoft-365/enterprise/office-365-e3?activetab=pivot:overviewtab
+
+CESAR SITE
+https://account9999.sharepoint.com/sites/CesarSite?market=en-US
+
+O365 ADMIN CENTER
+https://admin.microsoft.com/adminportal/home?ref=/subscriptions
+
+BULK LOADS
+https://sharepoint.stackexchange.com/questions/249921/best-practice-to-bulk-upload-records-to-an-existing-list
+
+
+API REQUEST
+https://www.c-sharpcorner.com/article/sharepoint-batch-request-for-add-list-item/
+
+UPLAOD VOER 5000 RECORDS
+https://sharepoint.stackexchange.com/questions/60457/import-bulk-data-over-5000-list-items-into-sharepoint
+
+BEST PRACTICE BULK UPLOAD
+https://sharepoint.stackexchange.com/questions/249921/best-practice-to-bulk-upload-records-to-an-existing-list
+
+IMPORT EXCEL TO EXISTING LIST
+https://blog.mydock365.com/import-excel-data-to-existing-sharepoint-list/
+
+Complete basic operations using SharePoint client library code
+https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/complete-basic-operations-using-sharepoint-client-library-code
+
+
+SHEREPOINT SDK
+https://www.microsoft.com/en-us/search?q=SharePoint+Online+Client+Components+SDK"
