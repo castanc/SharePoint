@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
@@ -9,6 +9,7 @@ using Microsoft.SharePoint;
 using Microsoft.SharePoint.Security;
 using Microsoft.IdentityModel;
 using System.IO;
+using System.Diagnostics;
 
 
 
@@ -45,6 +46,7 @@ namespace SHarePoiintConnect3
             web = ctx.Web;
 
             ctx.Load(site);
+            ctx.Load(web);
             ctx.ExecuteQuery();
 
             Console.WriteLine(site.Url.ToString());
@@ -142,9 +144,21 @@ namespace SHarePoiintConnect3
         static void AddItemToList(string listName)
         {
             var list = ctx.Web.Lists.GetByTitle("Lookups");
+            CamlQuery query = new CamlQuery();
+            query.ViewXml = "<View><Query><Where><Contains><FieldRef Name='Title'/><Value Type='Text'>from</Value></Contains></Where></Query></View>";
+
 
             ctx.Load(list.Fields);
+            var items = list.GetItems(query);
             ctx.ExecuteQuery();
+
+            int itemCOunt = 0;
+            foreach (var it in items)
+                itemCOunt++;
+
+            Console.WriteLine($"items count {itemCOunt}");
+            System.IO.File.WriteAllText(@"c:\temp\itemscount.txt", $"items count {itemCOunt}");
+
 
             var fields = list.Fields;
 
@@ -157,22 +171,34 @@ namespace SHarePoiintConnect3
 
 
             int batchCount = 0;
-            for(int i = 3; i < 6000; i++)
+            int maxrecs = 6000;
+            int count = 0;
+            //Parallel.For(200, maxrecs, i =>
+            for(int i=10000; i<16000; i++ )
             {
-                ListItemCreationInformation itemCreationInfo = new ListItemCreationInformation();
-                ListItem newItem = list.AddItem(itemCreationInfo);
+                try
+                {
+                    count++;
+                    ListItemCreationInformation itemCreationInfo = new ListItemCreationInformation();
+                    ListItem newItem = list.AddItem(itemCreationInfo);
 
-                newItem["Title"] = $"New Item from c# {i}";
-                newItem["Id0"] = i;
-                newItem.Update();
-                ctx.ExecuteQuery();
-                //batchCount++;
-                //if (batchCount > 5000)
-                //{
-                //    ctx.ExecuteQuery();
-                //    batchCount = 0;
-                //}
-                Console.WriteLine(i);
+                    newItem["Title"] = $"New Item from c# {i}";
+                    newItem["Id0"] = i;
+                    newItem.Update();
+                    ctx.ExecuteQuery();
+                    //batchCount++;
+                    //if (batchCount > 5000)
+                    //{
+                    //    ctx.ExecuteQuery();
+                    //    batchCount = 0;
+                    //}
+                    Console.WriteLine($"{count}\t{i}");
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("EXCEPTION " + ex.Message);
+                    //Console.ReadLine();
+                }
             }
         }
 
@@ -190,6 +216,8 @@ namespace SHarePoiintConnect3
             {
                 string s = ex.Message;
             }
+            Console.WriteLine("press enter");
+            Console.ReadLine();
 
         }
     }
